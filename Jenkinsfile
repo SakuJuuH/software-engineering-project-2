@@ -47,21 +47,21 @@ pipeline {
 		}
 		stage('Build App Docker Image') {
             steps {
+                // Build Docker image
                 script {
-                    sh 'docker buildx build --platform linux/amd64 -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} --push .'
+                    docker.build("${DOCKERHUB_APP_REPO}:${DOCKER_IMAGE_TAG}")
                 }
             }
         }
-
-		stage('Push Docker Images') {
-			steps {
-				// Push both Docker images to Docker Hub
-				script {
-					docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
-						docker.image("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}").push()
-          			}
-        		}
-      		}
-    	}
+        stage('Push Docker Images') {
+            steps {
+                // Push both Docker images to Docker Hub
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
+                        docker.image("${DOCKERHUB_APP_REPO}:${DOCKER_IMAGE_TAG}").push()
+                    }
+                }
+            }
+        }
 	}
 }
