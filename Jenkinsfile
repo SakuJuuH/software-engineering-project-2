@@ -46,13 +46,15 @@ pipeline {
 			}
 		}
 		stage('Build App Docker Image') {
-			steps {
-				// Build Docker image
-				script {
-					docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
-				}
-			}
-		}
+            steps {
+                script {
+                    sh """
+                    docker buildx create --name mybuilder --use || true
+                    docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} --push .
+                    """
+                }
+            }
+        }
 
 		stage('Push Docker Images') {
 			steps {
