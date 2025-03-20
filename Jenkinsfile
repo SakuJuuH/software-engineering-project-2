@@ -48,10 +48,7 @@ pipeline {
 		stage('Build App Docker Image') {
             steps {
                 script {
-                    sh """
-                    docker buildx create --name mybuilder --use || true
-                    docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} --push .
-                    """
+                    sh 'docker buildx build --platform linux/amd64 -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} --push .'
                 }
             }
         }
