@@ -36,7 +36,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ShoppingCart</mainClass> <!-- Correct main class -->
+                            <mainClass>Main</mainClass> <!-- Correct main class -->
                         </manifest>
                     </archive>
                 </configuration>
