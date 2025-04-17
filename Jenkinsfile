@@ -8,7 +8,7 @@ pipeline {
         SONAR_TOKEN = 'squ_4a02fbf0dea224ae6b7d27f986c481cba858fbb8' // Store the token securely
         DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
         DOCKERHUB_USERNAME = 'sakuheinonen'
-        DOCKERHUB_REPO = 'week-5-inclass'
+        DOCKERHUB_REPO = 'sep2-week-5-inclass'
         DOCKER_IMAGE_TAG_ARM64 = 'arm64'
         DOCKER_IMAGE_TAG_AMD64 = 'amd64'
         FULL_IMAGE_NAME_AMD64 = "${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG_AMD64}"
