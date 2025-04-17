@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/SakuJuuH/'
+                git branch: 'week-5-inclass', url: 'https://github.com/SakuJuuH/software-engineering-project-2.git'
             }
         }
 
