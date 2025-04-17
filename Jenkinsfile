@@ -44,7 +44,7 @@ pipeline {
             steps {
             // Build Docker image
                 script {
-                    docker.build("${DOCKERHUB_APP_REPO}:${DOCKER_IMAGE_TAG}")
+                    docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
                 }
             }
         }
