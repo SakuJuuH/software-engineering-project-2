@@ -45,23 +45,15 @@ pipeline {
             }
         }
         stage('Build Docker images') {
-            parallel {
-                stage('Build ARM64 Docker Image') {
-                    steps {
-                        // Build Docker image
-                        script {
-                            sh "docker build --platform linux/arm64 -t ${FULL_IMAGE_NAME_ARM64} ."
-                        }
-                    }
+            steps {
+                // Build Docker image
+                script {
+                    sh "docker build --platform linux/arm64 -t ${FULL_IMAGE_NAME_ARM64} ."
                 }
-
-                stage('Build AMD64 Docker Image') {
-                    steps {
-                        // Build Docker image
-                        script {
-                            sh "docker build --platform linux/amd64 -t ${FULL_IMAGE_NAME_AMD64} ."
-                        }
-                    }
+            
+                // Build Docker image
+                script {
+                    sh "docker build --platform linux/amd64 -t ${FULL_IMAGE_NAME_AMD64} ."
                 }
             }
         }
