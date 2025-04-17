@@ -66,26 +66,22 @@ pipeline {
             }
         }
         
+        // --- Docker Push Stages (Sequential) ---
         stage('Push Docker Images') {
-            parallel {
-                stage('Push AMD64 Image') {
-                    steps {
-                        script {
-                            docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
-                                echo "Pushing AMD64 image: ${env.FULL_IMAGE_NAME_AMD64}"
-                                docker.image(env.FULL_IMAGE_NAME_AMD64).push()
-                            }
-                        }
+            // Run push steps sequentially to avoid credential conflicts
+            steps {
+                // Push AMD64
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
+                        echo "Pushing AMD64 image: ${env.FULL_IMAGE_NAME_AMD64}"
+                        docker.image(env.FULL_IMAGE_NAME_AMD64).push()
                     }
                 }
-                stage('Push ARM64 Image') {
-                    steps {
-                         script {
-                            docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
-                                echo "Pushing ARM64 image: ${env.FULL_IMAGE_NAME_ARM64}"
-                                docker.image(env.FULL_IMAGE_NAME_ARM64).push()
-                            }
-                        }
+                // Push ARM64
+                script {
+                     docker.withRegistry('https://index.docker.io/v1/', DOCKERHUB_CREDENTIALS_ID) {
+                        echo "Pushing ARM64 image: ${env.FULL_IMAGE_NAME_ARM64}"
+                        docker.image(env.FULL_IMAGE_NAME_ARM64).push()
                     }
                 }
             }
